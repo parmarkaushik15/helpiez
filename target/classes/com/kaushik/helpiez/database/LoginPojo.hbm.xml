@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.kaushik.helpiez.database.LoginPojo" table="UserLogin">
+        <id name="loginId" type="integer">
+            <column name="loginId" />
+            <generator class="increment"/>
+        </id>
+        <property name="loginEmail" type="string">
+            <column name="loginEmail"  length="100" not-null="true"/>
+        </property>
+        <property name="loginPassword" type="string">
+            <column name="loginPassword"  length="600" not-null="true"/>
+        </property>
+        <property name="loginPasswordSalt" type="string">
+            <column name="loginPasswordSalt"  length="20" not-null="true"/>
+        </property>
+        <property name="loginFirstTimeStatus" type="string">
+            <column name="loginFirstTimeStatus"  length="50" not-null="true"/>
+        </property>
+		<property name="loginLastDateTime" type="date">
+            <column name="loginLastDateTime" />
+        </property>
+         <property name="loginStatus" type="string">
+            <column name="loginStatus"  length="15" not-null="true"/>
+        </property>
+        
+       <many-to-one name="rolePojo" class="com.kaushik.helpiez.database.RolePojo" fetch="select">
+            <column name="Role_Id_Fk" not-null="true"/>
+        </many-to-one>
+         
+        <set name="userRegistrationPojos" table="UserDetail"  inverse="true" lazy="true" fetch="select" cascade="all">
+        	<key>
+               	<column name="Login_Id_Fk" not-null="true" />
+            </key>
+            <one-to-many class="com.kaushik.helpiez.database.UserRegistrationPojo" />
+       	</set>
+       	<set name="ngoRegistrationPojos" table="NgoDetail"  inverse="true" lazy="true" fetch="select" cascade="all">
+        	<key>
+               	<column name="Login_Id_Fk" not-null="true" />
+            </key>
+            <one-to-many class="com.kaushik.helpiez.database.NgoRegistrationPojo" />
+       	</set>
+    </class>
+</hibernate-mapping>

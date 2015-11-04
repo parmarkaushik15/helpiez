@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.kaushik.helpiez.database.NgoRegistrationPojo" table="NgoDetail">
+        <id name="ngoId" type="integer">
+            <column name="ngoId" />
+            <generator class="increment"/>
+        </id>
+        <property name="ngoRegistrationDate" type="date">
+            <column name="ngoRegistrationDate" />
+        </property>
+        <property name="ngoName" type="string">
+            <column name="ngoName"  length="200" not-null="true"/>
+        </property>
+        <property name="ngoCause" type="string">
+            <column name="ngoCause"  length="50" not-null="true"/>
+        </property>
+        <property name="ngoEmailId" type="string">
+            <column name="ngoEmailId"  length="100" not-null="true"/>
+        </property>
+        <property name="ngoContactNumber" type="string">
+            <column name="ngoContactNumber" length="15" not-null="true"/>
+        </property>
+         <property name="ngoAlternativeContactNumber" type="string">
+            <column name="ngoAlternativeContactNumber" length="15"/>
+        </property>
+        <property name="ngoHeadOfficeAddress1" type="string">
+            <column name="ngoHeadOfficeAddress1"  length="200" not-null="true"/>
+        </property>
+        <property name="ngoHeadOfficeAddress2" type="string">
+            <column name="ngoHeadOfficeAddress2"  length="200" not-null="true"/>
+        </property>
+        <property name="ngoHeadOfficeAddressCity" type="string">
+            <column name="ngoHeadOfficeAddressCity"  length="15" not-null="true"/>
+        </property>
+        <property name="ngoHeadOfficeAddressState" type="string">
+            <column name="ngoHeadOfficeAddressState"  length="15" not-null="true"/>
+        </property>
+        <property name="ngoHeadOfficeAddressCountry" type="string">
+            <column name="ngoHeadOfficeAddressCountry"  length="15" not-null="true"/>
+        </property>
+		<property name="ngoHeadOfficeAddressPincode" type="string">
+            <column name="ngoHeadOfficeAddressPincode"  length="15" not-null="true"/>
+        </property>
+         <property name="ngoImageLogo" type="string">
+            <column name="ngoImageLogo"  length="1000" not-null="true"/>
+        </property>
+        <property name="ngoLocationLongitude" type="string">
+            <column name="ngoLocationLongitude"  length="50" not-null="true"/>
+        </property>
+        <property name="ngoLocationLatitude" type="string">
+            <column name="ngoLocationLatitude"  length="50" not-null="true"/>
+        </property>
+        <property name="ngoStatus" type="string">
+            <column name="ngoStatus"  length="15" not-null="true"/>
+        </property>
+        
+       <many-to-one name="loginPojo" class="com.kaushik.helpiez.database.LoginPojo" fetch="select">
+            <column name="Login_Id_Fk" not-null="true"/>
+        </many-to-one>
+         <many-to-one name="ngoCategoryPojo" class="com.kaushik.helpiez.database.NgoCategoryPojo" fetch="select">
+            <column name="Category_Id_Fk" not-null="true"/>
+        </many-to-one>
+         
+        <set name="eventPojos" table="NgoEvent"  inverse="true" lazy="true" fetch="select" cascade="all">
+        	<key>
+               	<column name="Ngo_Id_Fk" not-null="true" />
+            </key>
+            <one-to-many class="com.kaushik.helpiez.database.NgoEventPojo" />
+       	</set>
+       	<set name="userSubscriptionPojos" table="UserNgoSubscription"  inverse="true" lazy="true" fetch="select" cascade="all">
+        	<key>
+               	<column name="Ngo_Id_Fk" not-null="true" />
+            </key>
+            <one-to-many class="com.kaushik.helpiez.database.UserSubscriptionPojo" />
+       	</set>
+    </class>
+</hibernate-mapping>

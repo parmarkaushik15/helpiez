@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.kaushik.helpiez.database.NgoEventPojo" table="NgoEvent">
+        <id name="ngoEventId" type="integer">
+            <column name="ngoEventId" />
+            <generator class="increment"/>
+        </id>
+        <property name="ngoEventPostDate" type="date">
+            <column name="ngoEventPostDate" />
+        </property>
+        <property name="ngoEventTitle" type="string">
+            <column name="ngoEventTitle"  length="200" not-null="true"/>
+        </property>
+        <property name="ngoEventImage" type="string">
+            <column name="ngoEventImage"  length="500" not-null="true"/>
+        </property>
+        
+        <property name="ngoEventDescription" type="string">
+            <column name="ngoEventDescription"  length="2000" not-null="true"/>
+        </property>
+        <property name="ngoEventDate" type="date">
+            <column name="ngoEventDate"  not-null="true"/>
+        </property>
+        <property name="ngoEventOrganizerName" type="string">
+            <column name="ngoEventOrganizerName" length="50" not-null="true"/>
+        </property>
+        <property name="ngoEventOrganizerEmail" type="string">
+            <column name="ngoEventOrganizerEmail" length="100" not-null="true"/>
+        </property>
+        <property name="ngoEventOrganizerContactNumber" type="string">
+            <column name="ngoEventOrganizerContactNumber" length="15" not-null="true"/>
+        </property>
+        <property name="ngoEventOrganizerAlternativeContactNumber" type="string">
+            <column name="ngoEventOrganizerAlternativeContactNumber" length="15" not-null="true"/>
+        </property>
+        <property name="ngoEventLocationAddress" type="string">
+            <column name="ngoEventLocationAddress" length="200" not-null="true"/>
+        </property>
+         <property name="ngoEventLocationAddressCity" type="string">
+            <column name="ngoEventLocationAddressCity" length="50" not-null="true"/>
+        </property>
+        <property name="ngoEventLocationAddressState" type="string">
+            <column name="ngoEventLocationAddressState"  length="50" not-null="true"/>
+        </property>
+        <property name="ngoEventLocationAddressCountry" type="string">
+            <column name="ngoEventLocationAddressCountry"  length="50" not-null="true"/>
+        </property>
+        <property name="ngoEventLocationAddressPincode" type="string">
+            <column name="ngoEventLocationAddressPincode"  length="15" not-null="true"/>
+        </property>
+        <property name="ngoEventLocationLongitude" type="string">
+            <column name="ngoEventLocationLongitude"  length="15" not-null="true"/>
+        </property>
+        <property name="ngoEventLocationLatitude" type="string">
+            <column name="ngoEventLocationLatitude"  length="15" not-null="true"/>
+        </property>
+		<property name="ngoEventStatus" type="string">
+            <column name="ngoEventStatus"  length="15" not-null="true"/>
+        </property>
+        
+       <many-to-one name="ngoRegistrationPojo" class="com.kaushik.helpiez.database.NgoRegistrationPojo" fetch="select">
+            <column name="Ngo_Id_Fk" not-null="true"/>
+        </many-to-one>
+        
+        <set name="eventRegistrationPojos" table="UserEventRegister"  inverse="true" lazy="true" fetch="select" cascade="all">
+        	<key>
+               	<column name="Event_Id_Fk" not-null="true" />
+            </key>
+            <one-to-many class="com.kaushik.helpiez.database.UserEventRegistrationPojo" />
+       	</set>
+       	
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.kaushik.helpiez.database.UserRegistrationPojo" table="UserDetail">
+        <id name="userId" type="integer">
+            <column name="userId" />
+            <generator class="increment"/>
+        </id>
+        <property name="userRegistrationDate" type="date">
+            <column name="userRegistrationDate" />
+        </property>
+        <property name="userFirstName" type="string">
+            <column name="userFirstName"  length="50" not-null="true"/>
+        </property>
+        <property name="userLastName" type="string">
+            <column name="userLastName"  length="50" not-null="true"/>
+        </property>
+        <property name="userEmailId" type="string">
+            <column name="userEmailId"  length="100" not-null="true"/>
+        </property>
+        <property name="userDateofBirth" type="date">
+            <column name="userDateofBirth" />
+        </property>
+        <property name="userContactNumber" type="string">
+            <column name="userContactNumber"  length="15" not-null="true"/>
+        </property>
+		
+         <property name="userCountry" type="string">
+            <column name="userCountry"  length="25" not-null="true"/>
+        </property>
+        
+        <property name="userStatus" type="string">
+            <column name="userStatus"  length="15" not-null="true"/>
+        </property>
+        
+       <many-to-one name="loginPojo" class="com.kaushik.helpiez.database.LoginPojo" fetch="select">
+            <column name="Login_Id_Fk" not-null="true"/>
+        </many-to-one>
+         
+        <set name="eventRegistrationPojos" table="UserEventRegister"  inverse="true" lazy="true" fetch="select" cascade="all">
+        	<key>
+               	<column name="User_Id_Fk" not-null="true" />
+            </key>
+            <one-to-many class="com.kaushik.helpiez.database.UserEventRegistrationPojo" />
+       	</set>
+       	<set name="userSubscriptionPojos" table="UserNgoSubscription"  inverse="true" lazy="true" fetch="select" cascade="all">
+        	<key>
+               	<column name="User_Id_Fk" not-null="true" />
+            </key>
+            <one-to-many class="com.kaushik.helpiez.database.UserSubscriptionPojo" />
+       	</set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.kaushik.helpiez.database.UserSubscriptionPojo" table="UserNgoSubscription">
+        <id name="userSubscribeId" type="integer">
+            <column name="userSubscribeId" />
+            <generator class="increment"/>
+        </id>
+     	<property name="userSubscribeDate" type="date">
+            <column name="userSubscribeDate" />
+        </property>
+         <property name="userSubscribeStatus" type="string">
+            <column name="userSubscribeStatus"  length="15" not-null="true"/>
+        </property>
+        
+       <many-to-one name="userRegistrationPojo" class="com.kaushik.helpiez.database.UserRegistrationPojo" fetch="select">
+            <column name="User_Id_Fk" not-null="true"/>
+        </many-to-one>
+         <many-to-one name="ngoRegistrationPojo" class="com.kaushik.helpiez.database.NgoRegistrationPojo" fetch="select">
+            <column name="Ngo_Id_Fk" not-null="true"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

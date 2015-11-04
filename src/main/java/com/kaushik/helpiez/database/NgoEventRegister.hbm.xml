@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.kaushik.helpiez.database.UserEventRegistrationPojo" table="UserEventRegister">
+        <id name="userEventRegistrationId" type="integer">
+            <column name="userEventRegistrationId" />
+            <generator class="increment"/>
+        </id>
+     	<property name="userEventRegistrationDate" type="date">
+            <column name="userEventRegistrationDate" />
+        </property>
+         <property name="userEventRegistrationStatus" type="string">
+            <column name="userEventRegistrationStatus"  length="15" not-null="true"/>
+        </property>
+        
+       <many-to-one name="userRegistrationPojo" class="com.kaushik.helpiez.database.UserRegistrationPojo" fetch="select">
+            <column name="User_Id_Fk" not-null="true"/>
+        </many-to-one>
+         <many-to-one name="ngoEventPojo" class="com.kaushik.helpiez.database.NgoEventPojo" fetch="select">
+            <column name="Event_Id_Fk" not-null="true"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.kaushik.helpiez.database.NgoCategoryPojo" table="NgoCategory">
+        <id name="categoryId" type="integer">
+            <column name="categoryId" />
+            <generator class="increment"/>
+        </id>
+        <property name="categoryName" type="string">
+            <column name="categoryName"  length="50" not-null="true"/>
+        </property>
+        <property name="categoryStatus" type="string">
+            <column name="categoryStatus"  length="20" not-null="true"/>
+        </property>
+        
+        <set name="ngoRegistrationPojos" table="NgoDetail"  inverse="true" lazy="true" fetch="select" cascade="all">
+        	<key>
+               	<column name="Category_Id_Fk" not-null="true" />
+            </key>
+            <one-to-many class="com.kaushik.helpiez.database.NgoRegistrationPojo" />
+       	</set>
+      
+    </class>
+</hibernate-mapping>
